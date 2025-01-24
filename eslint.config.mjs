@@ -27,6 +27,7 @@ const commonRules = {
         objects  : 'always-multiline',
     }],
     'key-spacing': [2, {align: 'colon'}],
+    'prefer-template': [2]
 };
 
 const typescriptRules = {
