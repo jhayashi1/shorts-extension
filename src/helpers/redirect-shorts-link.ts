@@ -1,19 +1,24 @@
 const SHORTS_URL_PREFIX = 'https://www.youtube.com/shorts/';
 
-export const shortsRedirectCallback = async (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab): Promise<void> => {
-    const isActive = await chrome.storage.local.get('isActive');
-    const url = tab.url;
-    console.log(url);
-    if (!url || !isActive) {
+export const shortsRedirectCallback = async (): Promise<void> => {
+    const tab = await chrome.tabs.query({active: true, currentWindow: true});
+    const tabId = tab[0]?.id;
+    const curUrl = tab[0]?.url;
+
+    if (!curUrl || !tabId) {
         return;
     }
 
-    if (url.startsWith(SHORTS_URL_PREFIX)) {
-        const newUrl = url.replace('shorts/', 'watch?v=');
-        console.log('updating url to non-shorts-url');
-        await chrome.tabs.update(tabId, {url: newUrl});
+    if (curUrl.startsWith(SHORTS_URL_PREFIX)) {
+        const newUrl = curUrl.replace('shorts/', 'watch?v=');
+
+        chrome.scripting.executeScript({
+            target: {tabId},
+            func  : (url) => {
+                history.pushState(null, '', url);
+                window.location.href = url;
+            },
+            args: [newUrl],
+        });
     }
 };
-
-chrome.tabs.onUpdated.addListener(shortsRedirectCallback);
-console.log('added content scripts');

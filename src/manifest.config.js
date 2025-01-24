@@ -14,8 +14,4 @@ export default defineManifest({
         'storage',
         'tabs',
     ],
-    background: {
-        service_worker: 'src/helpers/redirect-shorts-link.ts',
-        type          : 'module',
-    },
 });

@@ -63,7 +63,7 @@ const typescriptRules = {
 
 const reactRules = {
     'react/jsx-first-prop-new-line'     : [2, 'multiline'],
-    'react/jsx-max-props-per-line'      : [2, {when: 'always', maximum: 2}],
+    'react/jsx-max-props-per-line'      : [2, {when: 'multiline', maximum: 1}],
     'react/jsx-closing-bracket-location': [2, 'tag-aligned'],
     'react/jsx-curly-newline'           : [2, {multiline: 'consistent', singleline: 'consistent'}],
     'react/jsx-sort-props'              : [2,
