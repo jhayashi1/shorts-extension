@@ -12,7 +12,7 @@ export const EmbededButton: FC = () => {
                 fontFamily={'Arial'}
                 sx={{color: 'black', textTransform: 'none'}}
             >
-                {'go to videOo'}
+                {'go to videoooooooo'}
             </Typography>
         </Button>
     );
