@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite --host 8080",
+    "start": "vite --no-open",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint ."
@@ -17,7 +17,7 @@
     "react-dom": "^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^1.0.14",
+    "@crxjs/vite-plugin": "2.0.0-beta.30",
     "@types/chrome": "^0.0.268",
     "@types/node": "^20.14.5",
     "@types/react": "^18.0.0",
@@ -27,6 +27,6 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.34.3",
     "typescript": "^4.6.3",
-    "vite": "^2.9.15"
+    "vite": "^5.4.14"
   }
 }

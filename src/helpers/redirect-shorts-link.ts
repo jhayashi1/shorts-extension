@@ -1,9 +1,13 @@
-const SHORTS_URL_PREFIX = 'https://www.youtube.com/shorts/';
+import {SHORTS_URL_PREFIX} from '../constants';
 
 export const shortsRedirectCallback = async (): Promise<void> => {
     const tab = await chrome.tabs.query({active: true, currentWindow: true});
     const tabId = tab[0]?.id;
     const curUrl = tab[0]?.url;
+
+    console.log(tabId);
+    console.log(curUrl);
+    console.log('redirecting');
 
     if (!curUrl || !tabId) {
         return;
