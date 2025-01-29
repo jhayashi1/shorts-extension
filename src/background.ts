@@ -5,7 +5,6 @@ const ACTIONS: Record<string, () => unknown> = {
 };
 
 chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
-    console.log('received message');
     const callback = ACTIONS[message.action];
 
     if (!ACTIONS[message.action]) {

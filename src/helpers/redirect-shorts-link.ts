@@ -12,13 +12,6 @@ export const shortsRedirectCallback = async (): Promise<void> => {
     if (curUrl.startsWith(SHORTS_URL_PREFIX)) {
         const newUrl = curUrl.replace('shorts/', 'watch?v=');
 
-        chrome.scripting.executeScript({
-            target: {tabId},
-            func  : (url) => {
-                history.pushState(null, '', url);
-                window.location.href = url;
-            },
-            args: [newUrl],
-        });
+        await chrome.tabs.update(tabId, {url: newUrl});
     }
 };
