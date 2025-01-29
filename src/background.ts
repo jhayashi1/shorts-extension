@@ -1,11 +1,16 @@
 import {shortsRedirectCallback} from './helpers/redirect-shorts-link';
 
+const ACTIONS: Record<string, () => unknown> = {
+    redirectShorts: shortsRedirectCallback,
+};
+
 chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
     console.log('received message');
-    if (message.action !== 'redirectShorts') {
+    const callback = ACTIONS[message.action];
+
+    if (!ACTIONS[message.action]) {
         return;
     }
 
-    console.log('redirecting shorts link');
-    shortsRedirectCallback();
+    callback();
 });
