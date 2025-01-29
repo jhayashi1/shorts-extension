@@ -1,4 +1,4 @@
-import {shortsRedirectCallback} from './helpers/redirect-shorts-link';
+import {shortsRedirectCallback} from '../helpers/redirect-shorts-link';
 
 const ACTIONS: Record<string, () => unknown> = {
     redirectShorts: shortsRedirectCallback,

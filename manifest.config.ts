@@ -16,7 +16,7 @@ export default defineManifest({
         'tabs',
     ],
     background: {
-        service_worker: 'src/background.ts',
+        service_worker: 'src/background/message-listener.ts',
         type          : 'module',
     },
     host_permissions: ['<all_urls>'],

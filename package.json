@@ -7,7 +7,8 @@
     "start": "vite --no-open",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "types": "tsc --noEmit"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
