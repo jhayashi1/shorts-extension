@@ -22,8 +22,7 @@ export default defineManifest({
     host_permissions: ['<all_urls>'],
     content_scripts : [
         {
-            // matches: [`${SHORTS_URL_PREFIX}**`, 'http://localhost**'],
-            matches: ['<all_urls>'],
+            matches: [`${SHORTS_URL_PREFIX}**`],
             js     : ['src/helpers/embed-button-to-shorts.tsx'],
         },
     ],

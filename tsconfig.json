@@ -15,7 +15,10 @@
       "isolatedModules": true,
       "noEmit": true,
       "jsx": "react-jsx",
-      "allowImportingTsExtensions": true
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./src/*"]
+      }
     },
     "include": ["src", "eslint.config.mjs", "esbuild.config.ts", "manifest.config.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]

@@ -1,9 +1,6 @@
 import {shortsRedirectCallback} from './helpers/redirect-shorts-link';
 
-console.log('wooooooo');
-console.log('ACTIVATE');
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
     console.log('received message');
     if (message.action !== 'redirectShorts') {
         return;

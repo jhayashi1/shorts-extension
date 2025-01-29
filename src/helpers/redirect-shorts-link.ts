@@ -5,10 +5,6 @@ export const shortsRedirectCallback = async (): Promise<void> => {
     const tabId = tab[0]?.id;
     const curUrl = tab[0]?.url;
 
-    console.log(tabId);
-    console.log(curUrl);
-    console.log('redirecting');
-
     if (!curUrl || !tabId) {
         return;
     }

@@ -4,44 +4,24 @@ import {SHORTS_URL_PREFIX} from '../constants';
 
 import React from 'react';
 
-// const prependRedirectButton = (mutations): void => {
-//     const targetDiv = document.getElementById('actions');
-//     console.log(targetDiv);
+if (window.location.href.includes(SHORTS_URL_PREFIX) || window.location.href.includes('localhost')) {
+    const observer = new MutationObserver((_mutations) => {
+        const targetDiv = document.getElementById('actions');
 
-//     if (targetDiv && window.location.href.includes(SHORTS_URL_PREFIX)) {
-//         const root = document.createElement('div');
-//         root.id = 'crx-root';
-//         targetDiv.prepend(root);
+        if (targetDiv) {
+            observer.disconnect();
 
-//         createRoot(root).render(
-//             <React.StrictMode>
-//                 <EmbededButton />
-//             </React.StrictMode>
-//         );
-//     }
-// };
+            const root = document.createElement('div');
+            root.id = 'crx-root';
+            targetDiv.prepend(root);
 
-// document.addEventListener('DOMContentLoaded', prependRedirectButton);
-// if (window.location.href.includes(SHORTS_URL_PREFIX) || window.location.href.includes('localhost')) {
-console.log('observing');
-const observer = new MutationObserver((mutations) => {
-    const targetDiv = document.getElementById('actions');
-    console.log(targetDiv);
+            createRoot(root).render(
+                <React.StrictMode>
+                    <EmbededButton />
+                </React.StrictMode>
+            );
+        }
+    });
 
-    if (targetDiv) {
-        observer.disconnect();
-
-        const root = document.createElement('div');
-        root.id = 'crx-root';
-        targetDiv.prepend(root);
-
-        createRoot(root).render(
-            <React.StrictMode>
-                <EmbededButton />
-            </React.StrictMode>
-        );
-    }
-});
-
-observer.observe(document.body, {childList: true, subtree: true});
-// }
+    observer.observe(document.body, {childList: true, subtree: true});
+}

@@ -21,7 +21,6 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <div id='actions' />
         <ThemeProvider theme={theme}>
             <Paper sx={{borderRadius: 0, flex: 1, minHeight: '100vh'}}>
                 <Box sx={{pt: '2rem', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
