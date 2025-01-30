@@ -21,11 +21,4 @@ export default defineManifest({
         type          : 'module',
     },
     host_permissions: ['<all_urls>'],
-    content_scripts : [
-        {
-            // matches: [`${SHORTS_URL_PREFIX}**`],
-            matches: ['<all_urls>'],
-            js     : ['src/helpers/embed-button-to-shorts.tsx'],
-        },
-    ],
 });
