@@ -4,13 +4,21 @@ import {SHORTS_URL_PREFIX} from '../constants';
 import React from 'react';
 
 const ROOT_ID = 'crx-root';
+const CALL_LIMIT = 3;
+
 const actionContainerRegex = /^action-container/;
+let intervalId: number | undefined = undefined;
+let count = 0;
 
 const injectButton = (): void => {
-    const existingInjection = document.getElementById(ROOT_ID);
+    count += 1;
 
-    if (!window.location.href.includes(SHORTS_URL_PREFIX) || existingInjection) {
-        console.log('cancelled injection');
+    if (count > CALL_LIMIT){
+        window.clearInterval(intervalId);
+        return;
+    }
+
+    if (!window.location.href.includes(SHORTS_URL_PREFIX)) {
         return;
     }
 
@@ -18,9 +26,11 @@ const injectButton = (): void => {
     const targetDivs = actionContainers.map((actionContainer) => actionContainer.querySelector('[id=actions]'));
 
     targetDivs.forEach((targetDiv) => {
-        if (!targetDiv) {
+        if (!targetDiv || targetDiv.querySelector(`[id=${ROOT_ID}]`)) {
             return;
         }
+
+        console.log('injecting button');
 
         const root = document.createElement('div');
         root.id = ROOT_ID;
@@ -35,7 +45,7 @@ const injectButton = (): void => {
 };
 
 const onUrlChange = (): void => {
-    window.setInterval(injectButton, 3 * 1000);
+    intervalId = window.setInterval(injectButton, 2 * 1000);
 };
 
 onUrlChange();
