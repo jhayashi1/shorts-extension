@@ -2,11 +2,10 @@ import {createRoot} from 'react-dom/client';
 import {EmbededButton} from '../components/EmbededButton';
 import {SHORTS_URL_PREFIX} from '../constants';
 import React from 'react';
+import {sleep} from './sleep';
 
 const ROOT_ID = 'crx-root';
 let observer: MutationObserver | undefined;
-
-const sleep = async (ms: number): Promise<number> => await new Promise((r) => window.setTimeout(r, ms));
 
 const injectButton = (mutations: MutationRecord[]): void => {
     console.log('mutation detected');
