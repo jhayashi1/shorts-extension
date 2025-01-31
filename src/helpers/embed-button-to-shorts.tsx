@@ -4,20 +4,10 @@ import {SHORTS_URL_PREFIX} from '../constants';
 import React from 'react';
 
 const ROOT_ID = 'crx-root';
-const CALL_LIMIT = 3;
 
 const actionContainerRegex = /^action-container/;
-let intervalId: number | undefined = undefined;
-let count = 0;
 
 const injectButton = (): void => {
-    count += 1;
-
-    if (count > CALL_LIMIT){
-        window.clearInterval(intervalId);
-        return;
-    }
-
     if (!window.location.href.includes(SHORTS_URL_PREFIX)) {
         return;
     }
@@ -45,7 +35,7 @@ const injectButton = (): void => {
 };
 
 const onUrlChange = (): void => {
-    intervalId = window.setInterval(injectButton, 2 * 1000);
+    window.setInterval(injectButton, 2 * 1000);
 };
 
 onUrlChange();
