@@ -2,40 +2,61 @@ import {createRoot} from 'react-dom/client';
 import {EmbededButton} from '../components/EmbededButton';
 import {SHORTS_URL_PREFIX} from '../constants';
 import React from 'react';
+import {sleep} from './sleep';
 
 const ROOT_ID = 'crx-root';
+let observer: MutationObserver | undefined;
 
-const actionContainerRegex = /^action-container/;
-
-const injectButton = (): void => {
+const injectButton = (mutations: MutationRecord[]): void => {
+    console.log('mutation detected');
     if (!window.location.href.includes(SHORTS_URL_PREFIX)) {
         return;
     }
 
-    const actionContainers = [...document.querySelectorAll('*')].filter(({className}) => actionContainerRegex.test(className));
-    const targetDivs = actionContainers.map((actionContainer) => actionContainer.querySelector('[id=actions]'));
+    mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+            if (node.nodeType !== 1) {
+                return;
+            }
 
-    targetDivs.forEach((targetDiv) => {
-        if (!targetDiv || targetDiv.querySelector(`[id=${ROOT_ID}]`)) {
-            return;
-        }
+            const element = node as HTMLElement;
 
-        console.log('injecting button');
+            const actionsDivs = element.matches?.('#actions')
+                ? [element]
+                : element.querySelectorAll?.('#actions');
 
-        const root = document.createElement('div');
-        root.id = ROOT_ID;
-        targetDiv.prepend(root);
+            actionsDivs.forEach((actionsDiv) => {
+                if (!(actionsDiv instanceof HTMLElement) || actionsDiv.dataset.observed) {
+                    return;
+                }
 
-        createRoot(root).render(
-            <React.StrictMode>
-                <EmbededButton />
-            </React.StrictMode>
-        );
+                actionsDiv.dataset.observed = 'true';
+
+                const root = document.createElement('div');
+                root.id = ROOT_ID;
+                actionsDiv.prepend(root);
+
+                createRoot(root).render(
+                    <React.StrictMode>
+                        <EmbededButton />
+                    </React.StrictMode>
+                );
+
+            });
+        });
     });
 };
 
 const onUrlChange = (): void => {
-    window.setInterval(injectButton, 2 * 1000);
+    let content;
+
+    while (!content) {
+        sleep(1 * 1000);
+        content = document.querySelector('#content');
+    }
+
+    observer = new MutationObserver(injectButton);
+    observer.observe(content, {childList: true, subtree: true});
 };
 
 onUrlChange();
