@@ -1,5 +1,5 @@
 import {defineManifest} from '@crxjs/vite-plugin';
-import {SHORTS_URL_PREFIX, YOUTUBE_PREFIX} from './src/constants';
+import {YOUTUBE_PREFIX} from './src/constants';
 
 export default defineManifest({
     manifest_version: 3,
