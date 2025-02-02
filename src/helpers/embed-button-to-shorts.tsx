@@ -13,6 +13,7 @@ const injectButton = (mutations: MutationRecord[]): void => {
         return;
     }
 
+
     mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
             if (node.nodeType !== 1) {

@@ -1,6 +1,6 @@
 {
-    "include": ["./"],
+    "include": ["src", "eslint.config.js", "manifest.config.ts"],
     "extends": "./tsconfig.json",
-    "exclude": ["node_modules", "dist", "coverage"]
+    "exclude": ["node_modules", "dist"]
 }
   

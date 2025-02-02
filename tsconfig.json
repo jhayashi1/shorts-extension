@@ -3,7 +3,7 @@
       "target": "ESNext",
       "useDefineForClassFields": true,
       "lib": ["DOM", "DOM.Iterable", "ESNext"],
-      "allowJs": false,
+      "allowJs": true,
       "skipLibCheck": true,
       "esModuleInterop": false,
       "allowSyntheticDefaultImports": true,
@@ -20,6 +20,6 @@
         "@/*": ["./src/*"]
       }
     },
-    "include": ["src", "eslint.config.mjs", "esbuild.config.ts", "manifest.config.ts"],
+    "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]
   }

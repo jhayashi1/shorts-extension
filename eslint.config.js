@@ -1,16 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import react from 'eslint-plugin-react';
 import parser from '@typescript-eslint/parser';
 import TypeScriptESLint from '@typescript-eslint/eslint-plugin';
+import js from '@eslint/js';
 
 const commonRules = {
-    quotes                : [2, 'single'],
-    semi                  : [2, 'always'],
-    'eol-last'            : 2,
-    'no-trailing-spaces'  : 2,
-    'no-multi-spaces'     : [2, {exceptions: {Property: true, TSPropertySignature: true}}],
-    'quote-props'         : [2, 'as-needed'],
+    ...js.configs.recommended.rules,
+    'comma-dangle': [2, {
+        arrays   : 'always-multiline',
+        imports  : 'never',
+        exports  : 'never',
+        functions: 'never',
+        objects  : 'always-multiline',
+    }],
     'comma-spacing'       : [2, {before: false, after: true}],
-    'object-curly-spacing': [2, 'never'],
+    'eol-last'            : 2,
+    'key-spacing'         : [2, {align: 'colon'}],
+    'no-multi-spaces'     : [2, {exceptions: {Property: true, TSPropertySignature: true}}],
+    'no-trailing-spaces'  : 2,
+    'no-unused-vars'      : [2, {varsIgnorePattern: '^_', argsIgnorePattern: '^_'}],
     'object-curly-newline': [2, {
         ObjectExpression: {
             multiline: true, minProperties: 0, consistent: true,
@@ -19,15 +27,11 @@ const commonRules = {
             multiline: true, minProperties: 0, consistent: true,
         },
     }],
-    'comma-dangle': [2, {
-        arrays   : 'always-multiline',
-        imports  : 'never',
-        exports  : 'never',
-        functions: 'never',
-        objects  : 'always-multiline',
-    }],
-    'key-spacing': [2, {align: 'colon'}],
-    'prefer-template': [2]
+    'object-curly-spacing': [2, 'never'],
+    'prefer-template'     : 2,
+    'quote-props'         : [2, 'as-needed'],
+    quotes                : [2, 'single'],
+    semi                  : 2,
 };
 
 const typescriptRules = {
@@ -54,7 +58,7 @@ const typescriptRules = {
     '@typescript-eslint/no-unsafe-call'              : 1,
     'no-unused-expressions'                          : 0,
     '@typescript-eslint/no-unused-expressions'       : [2, {allowTernary: true}],
-    '@typescript-eslint/no-unused-vars'              : [2, { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars'              : [2, {varsIgnorePattern: '^_', argsIgnorePattern: '^_'}],
     '@typescript-eslint/prefer-reduce-type-parameter': 0,
     '@typescript-eslint/promise-function-async'      : 2,
     'no-return-await'                                : 0,
@@ -93,9 +97,11 @@ export default [{
     languageOptions: {
         parser,
         parserOptions: {
-            ecmaFeatures: {modules: true},
-            ecmaVersion : 'latest',
-            project     : './tsconfig.json',
+            ecmaFeatures   : {modules: true},
+            ecmaVersion    : 'latest',
+            sourceType     : 'module',
+            project        : 'tsconfig.eslint.json',
+            tsconfigRootDir: './',
         },
         ecmaVersion: 12,
         globals    : {
@@ -103,6 +109,11 @@ export default [{
             commonjs     : true,
             es2021       : true,
             webextensions: true,
+            window       : true,
+            chrome       : true,
+            document     : true,
+            console      : true,
+            __dirname    : true,
         },
     },
     rules: {
